@@ -14,6 +14,8 @@ TraySetIcon "icon\normal.ico"
 !+^::|
 ; alt+ / -> _
 !/::_
+; alt+ / -> _
+!Home::End
 ; ctrl+ / -> menu
 ^/::AppsKey
 
