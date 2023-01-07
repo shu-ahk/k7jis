@@ -9,17 +9,16 @@ FileInstall "f.ico", "icon\f.ico", true
 TraySetIcon "icon\normal.ico"
 
 ; missing keys
-; alt+ =+ -> \|
+; alt+^ -> \|
 !^::\
 !+^::|
-; alt+ / -> _
+; alt+/ -> _
 !/::_
-; alt+ / -> _
-!Home::End
-; ctrl+ / -> menu
+; ctrl+/ -> menu
 ^/::AppsKey
 
-; Alt+Esc
+; alt+home->end
+!Home::End
 fmode := false
 !Esc::
 {
