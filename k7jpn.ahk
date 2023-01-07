@@ -19,6 +19,8 @@ TraySetIcon "icon\normal.ico"
 
 ; alt+home->end
 !Home::End
+; alt+esc -> zenhan
+LAlt & Esc::Send "{vkF3sc029}"
 fmode := false
 !Esc::
 {
@@ -59,6 +61,4 @@ fmode := false
 !Down::PgDn
 !Left::Home
 !Right::End
-; ZenkakuHankaku
-Esc::Send "{vkF3sc029}"
 #hotif
