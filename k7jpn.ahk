@@ -3,10 +3,17 @@
 #Requires AutoHotkey v2.0
 #SingleInstance Force
 
+appName := "K7 JIS"
+
 DirCreate "icon"
 FileInstall "normal.ico", "icon\normal.ico", true
 FileInstall "f.ico", "icon\f.ico", true
 TraySetIcon "icon\normal.ico"
+
+A_TrayMenu.Add
+A_TrayMenu.Add "&Toggle", MenuToggleFMode
+A_TrayMenu.Default := "&Toggle"
+A_TrayMenu.ClickCount := 1
 
 ; missing keys
 ; alt+^ -> \|
@@ -24,27 +31,7 @@ LAlt & Esc::Send "{vkF3sc029}"
 
 ; alt+backspace
 fmode := false
-!BS::
-{
-    global fmode
-    fmode := not fmode
-
-    if fmode {
-        TraySetIcon "icon\f.ico"
-        msg := "F mode"
-    } else {
-        TraySetIcon "icon\normal.ico"
-        msg := "Normal mode"
-    }
-
-    if CaretGetPos(&x, &y) {
-        ToolTip msg, x, y + 20
-    } else {
-        ToolTip msg
-    }
-    SetTimer () => ToolTip(), -1000
-
-}
+!BS::ToggleFMode()
 
 #hotif fmode
 1::F1
@@ -59,8 +46,44 @@ fmode := false
 0::F10
 -::F11
 ^::F12
+!1::1
+!2::2
+!3::3
+!4::4
+!5::5
+!6::6
+!7::7
+!8::8
+!9::9
+!0::0
+!-::-
+!^::^
 !Up::PgUp
 !Down::PgDn
 !Left::Home
 !Right::End
 #hotif
+
+MenuToggleFMode(ItemName, ItemPos, MyMenu) 
+{
+    ToggleFMode
+}
+
+ToggleFMode()
+{
+    global fmode
+    fmode := not fmode
+
+    if fmode {
+        icon := "icon\f.ico"
+        msg := "Function mode"
+    } else {
+        icon := "icon\normal.ico"
+        msg := "Normal mode"
+    }
+
+    TraySetIcon icon
+    TrayTip
+    TrayTip msg, appName, 4+16+32
+    SetTimer () => TrayTip(), -3000
+}
