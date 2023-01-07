@@ -21,8 +21,10 @@ TraySetIcon "icon\normal.ico"
 !Home::End
 ; alt+esc -> zenhan
 LAlt & Esc::Send "{vkF3sc029}"
+
+; alt+backspace
 fmode := false
-!Esc::
+!BS::
 {
     global fmode
     fmode := not fmode
