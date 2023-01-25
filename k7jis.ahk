@@ -11,6 +11,8 @@ FileInstall "f.ico", "icon\f.ico", true
 TraySetIcon "icon\normal.ico"
 
 A_TrayMenu.Add
+A_TrayMenu.Add "&Reload", MenuReload
+A_TrayMenu.Add
 A_TrayMenu.Add "&Toggle", MenuToggleFMode
 A_TrayMenu.Default := "&Toggle"
 A_TrayMenu.ClickCount := 1
@@ -32,6 +34,8 @@ LAlt & Esc::Send "{vkF3sc029}"
 ; alt+backspace
 fmode := false
 !BS::ToggleFMode()
+
+~F & 1::F1
 
 #hotif fmode
 1::F1
@@ -67,6 +71,11 @@ fmode := false
 MenuToggleFMode(ItemName, ItemPos, MyMenu) 
 {
     ToggleFMode
+}
+
+MenuReload(ItemName, ItemPos, MyMenu) 
+{
+    Reload
 }
 
 ToggleFMode()
