@@ -17,6 +17,8 @@ A_TrayMenu.Add "&Toggle", MenuToggleFMode
 A_TrayMenu.Default := "&Toggle"
 A_TrayMenu.ClickCount := 1
 
+SetTimer onTimer, 10*1000
+
 ; missing keys
 ; alt+^ -> \|
 !^::\
@@ -95,4 +97,16 @@ ToggleFMode()
     TrayTip
     TrayTip msg, appName, 4+16+32
     SetTimer () => TrayTip(), -3000
+}
+
+lastWindow := EnvGet("K7JIS_LASTWINDOW")
+onTimer()
+{
+    win := String(WinActive("A"))
+    global lastWindow
+
+    if win != lastWindow {
+        EnvSet("K7JIS_LASTWINDOW", win)
+        Reload
+    }
 }
