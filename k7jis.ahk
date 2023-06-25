@@ -70,6 +70,57 @@ fmode := false
 !Right::End
 #hotif
 
+;https://edvakf.hatenadiary.org/entry/20101027/1288168554
+SandS_SpaceDown := 0
+SandS_SpaceDownTime := 0
+;SandS_AnyKeyPressed := 0
+hook := InputHook("L1 V,{LControl}{RControl}{LAlt}{RAlt}{LShift}{RShift}{LWin}{RWin}{AppsKey}{F1}{F2}{F3}{F4}{F5}{F6}{F7}{F8}{F9}{F10}{F11}{F12}{Left}{Right}{Up}{Down}{Home}{End}{PgUp}{PgDn}{Del}{Ins}{BS}{Capslock}{Numlock}{PrintScreen}{Pause}")
+*Space:: {
+  global SandS_SpaceDown
+  global SandS_SpaceDownTime
+  ;global SandS_AnyKeyPressed
+
+    ;TrayTip
+    ;TrayTip "spaceDown", appName, 4+16+32
+    ;SetTimer () => TrayTip(), -1000
+
+  SendInput "{RShift Down}"
+  If SandS_SpaceDown == 1
+  {
+    Return
+  }
+  SandS_SpaceDown := 1
+  SandS_SpaceDownTime := A_TickCount ; milliseconds after computer is booted http://www.autohotkey.com/docs/Variables.htm
+  ;SandS_AnyKeyPressed := 0
+  ; watch for the next single key, http://www.autohotkey.com/docs/commands/Input.htm
+  SandS_AnyKey := hook.Input
+  ;SandS_AnyKeyPressed := 1
+  Return
+}
+
+*Space Up:: {
+  global SandS_SpaceDown
+  global SandS_SpaceDownTime
+  ;global SandS_AnyKeyPressed
+
+    ;TrayTip
+    ;TrayTip "spaceUp" . String(SandS_AnyKeyPressed), appName, 4+16+32
+    ;SetTimer () => TrayTip(), -1000
+
+
+  SendInput "{RShift Up}"
+  SandS_SpaceDown := 0
+  ;If SandS_AnyKeyPressed == 0 {
+    If A_TickCount - SandS_SpaceDownTime < 200 {
+      SendInput "{Space}"
+    }
+    ; Send EndKey of the "Input" command above
+    ; You must use Send here since SendInput is ignored by "Input"
+    Send "{RShift}"
+  ;}
+  Return
+}
+
 MenuToggleFMode(ItemName, ItemPos, MyMenu) 
 {
     ToggleFMode
