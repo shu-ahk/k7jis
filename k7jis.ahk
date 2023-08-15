@@ -17,6 +17,8 @@ A_TrayMenu.Add "&Toggle", MenuToggleFMode
 A_TrayMenu.Default := "&Toggle"
 A_TrayMenu.ClickCount := 1
 
+SendMode "InputThenPlay"
+
 SetTimer onTimer, 10*1000
 
 ; missing keys
