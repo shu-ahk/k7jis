@@ -3,6 +3,8 @@
 #Requires AutoHotkey v2.0
 #SingleInstance Force
 
+OnError MyErrorcallback
+
 appName := "K7 JIS"
 
 DirCreate "icon"
@@ -162,4 +164,10 @@ onTimer()
         EnvSet("K7JIS_LASTWINDOW", win)
         Reload
     }
+}
+
+MyErrorcallback(Thrown, Mode)
+{
+    Reload
+    return 1
 }
